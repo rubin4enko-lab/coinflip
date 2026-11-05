@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CoinFlip</title>
+  <meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="CoinFlip">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <!-- Главная -->
+    <section id="view-main" class="view active">
+      <h1>Что решаем?</h1>
+      <p class="sub">Спроси — монетка подскажет и объяснит.</p>
+
+      <div class="card">
+        <div class="field">
+          <input id="q" type="text" placeholder="Например: пойти на прогулку?"
+                 enterkeyhint="go" autocomplete="off" autocapitalize="sentences" maxlength="200">
+          <button id="mic" class="icon-btn" type="button" aria-label="Голосовой ввод">🎙</button>
+        </div>
+        <div class="row">
+          <label for="delay">Когда ответить</label>
+          <select id="delay">
+            <option value="0">сразу</option>
+            <option value="10">через 10 сек</option>
+            <option value="60">через 1 мин</option>
+          </select>
+        </div>
+        <button id="go" class="primary" type="button">Решить</button>
+        <p class="tip">Можно предложить варианты: «чай или кофе?»</p>
+      </div>
+
+      <div id="hint" class="hint" hidden></div>
+
+      <div id="result" class="result" hidden aria-live="polite">
+        <div id="r-icon" class="r-icon"></div>
+        <div id="r-answer" class="r-answer"></div>
+        <div id="r-arg" class="r-arg"></div>
+        <div id="r-q" class="r-q"></div>
+      </div>
+    </section>
+
+    <!-- История -->
+    <section id="view-history" class="view">
+      <div class="head">
+        <h1>История</h1>
+        <button id="clear" class="link-btn" type="button">Очистить</button>
+      </div>
+      <ul id="history-list" class="list"></ul>
+      <p id="history-empty" class="empty">Пока пусто. Задай первый вопрос.</p>
+    </section>
+
+    <!-- Настройки -->
+    <section id="view-settings" class="view">
+      <h1>Настройки</h1>
+
+      <div class="card">
+        <div class="label">Логика</div>
+        <div class="seg" id="mode-seg">
+          <button type="button" data-mode="smart">Умная</button>
+          <button type="button" data-mode="random">Чистый рандом</button>
+        </div>
+        <p class="note">Умная логика учитывает слова в вопросе (деньги, друзья, спорт, поздно…). Чистый рандом — просто бросок монетки.</p>
+      </div>
+
+      <div class="card">
+        <div class="label">Вес ответов (для «да / нет»)</div>
+        <input id="weight" type="range" min="10" max="90" step="5" value="50">
+        <div class="weights"><span id="w-yes">🟢 ДА 50%</span><span id="w-no">🔴 НЕТ 50%</span></div>
+        <p class="note">Сдвигает шансы в обоих режимах. В умном режиме поверх этого работают ключевые слова.</p>
+        <button id="w-reset" class="link-btn" type="button">Сбросить на 50/50</button>
+      </div>
+
+      <p class="note center">Все данные хранятся только на этом устройстве.</p>
+    </section>
+  </main>
+
+  <nav class="tabs" aria-label="Разделы">
+    <button type="button" data-view="main" class="active"><span>🪙</span>Решить</button>
+    <button type="button" data-view="history"><span>🕘</span>История</button>
+    <button type="button" data-view="settings"><span>⚙️</span>Настройки</button>
+  </nav>
+
+  <script src="history.js"></script>
+  <script src="speech.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
